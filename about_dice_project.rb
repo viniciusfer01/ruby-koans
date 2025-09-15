@@ -41,15 +41,22 @@ class AboutDiceProject < Neo::Koan
 
   def test_dice_values_should_change_between_rolls
     dice = DiceSet.new
+    first_values = nil
+    changed = false
 
-    dice.roll(5)
-    first_time = dice.values
+    10.times do
+      dice.roll(5)
+      if first_values.nil?
+        first_values = dice.values.dup
+      else
+        if dice.values != first_values
+          changed = true
+          break
+        end
+      end
+    end
 
-    dice.roll(5)
-    second_time = dice.values
-
-    assert_not_equal first_time, second_time,
-      "Two rolls should not be equal"
+    assert changed, "Expected at least one different result over multiple rolls"
 
     # THINK ABOUT IT:
     #
