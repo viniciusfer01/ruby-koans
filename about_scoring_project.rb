@@ -40,7 +40,6 @@ def score(dice)
   dice.each do |roll| 
     results_hash[roll] += 1
   end
-  puts results_hash
   
   if results_hash[1] >= 3
     results_hash[1] -= 3
